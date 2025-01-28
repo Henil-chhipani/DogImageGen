@@ -32,9 +32,9 @@ An Android app built with Jetpack Compose that generates random dog images using
 
 ---
 
-## Screenshots
+## Screen Recording
 
-Add screenshots of the app (e.g., Home Screen, Generate Dogs Screen, and Recently Generated Dogs Screen) here.
+[Link](https://drive.google.com/file/d/16Dm0FepfAu_mcw23xLIUjId5KAeNkvWh/view?usp=drive_link)
 
 ---
 
