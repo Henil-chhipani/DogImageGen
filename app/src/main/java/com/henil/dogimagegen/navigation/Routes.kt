@@ -1,8 +1,7 @@
 package com.henil.dogimagegen.navigation
 
 sealed class Routes(val route: String) {
-    object Home : Routes("home")
-    object Generate : Routes("generate")
-    object Images : Routes("Images")
-
+    data object Home : Routes("home")
+    data object Generate : Routes("generate")
+    data object Images : Routes("Images")
 }

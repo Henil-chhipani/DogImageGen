@@ -68,7 +68,7 @@ fun ImageScreenContent(
     LaunchedEffect(Unit) {
         onEvent(ImageUiEvent.GetAllImages)
     }
-    var globalNavController = GlobalNavController.current
+    val globalNavController = GlobalNavController.current
     Scaffold(
         topBar = {
             TopBar { globalNavController.popBackStack() }

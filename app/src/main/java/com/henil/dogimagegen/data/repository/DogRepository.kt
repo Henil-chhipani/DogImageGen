@@ -43,7 +43,7 @@ class DogRepository @Inject constructor(
     suspend fun fetchAndStoreDogImage(): DogImageResponse {
         return try {
             val response = dogApiService.getRandomDogImage() // Non-blocking
-            lruCache.put(response.message, response.message)
+            lruCache[response.message] = response.message
             saveCacheToStorage()
             response
         } catch (e: Exception) {
@@ -76,7 +76,7 @@ class DogRepository @Inject constructor(
     private fun loadCacheFromStorage() {
         CoroutineScope(Dispatchers.IO).launch {
             getAllImagesFlow().firstOrNull()?.forEach { imageUrl ->
-                lruCache.put(imageUrl, imageUrl)
+                lruCache[imageUrl] = imageUrl
             }
         }
     }
