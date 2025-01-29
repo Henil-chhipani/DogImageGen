@@ -40,25 +40,17 @@ class DogRepository @Inject constructor(
     init {
         loadCacheFromStorage()
     }
-
     suspend fun fetchAndStoreDogImage(): DogImageResponse {
         return try {
-            withContext(Dispatchers.IO) {
-                val response = dogApiService.getRandomDogImage().execute()
-                if (response.isSuccessful) {
-                    response.body()?.let { dogImageResponse ->
-                        lruCache.put(dogImageResponse.message, dogImageResponse.message)
-                        saveCacheToStorage()
-                        return@withContext dogImageResponse
-                    }
-                }
-                DogImageResponse(message = "API error: ${response.code()}", status = "error")
-            }
+            val response = dogApiService.getRandomDogImage() // Non-blocking
+            lruCache.put(response.message, response.message)
+            saveCacheToStorage()
+            response
         } catch (e: Exception) {
-            e.printStackTrace()
             DogImageResponse(message = "Error: ${e.localizedMessage}", status = "error")
         }
     }
+
 
     fun getAllImagesFlow(): Flow<List<String>> {
         return dataStore.data.map { preferences ->
